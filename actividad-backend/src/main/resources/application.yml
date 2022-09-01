@@ -1,0 +1,214 @@
+$ref:
+- '#/components/schemas/Soproduc'
+- /components/schemas/Soproduc
+- '#/components/schemas/Socatego'
+'200': ''
+'400': ''
+'404': ''
+'409': ''
+'-':
+- 'url: http://localhost:8080'
+- 'name: soproduc'
+- 'name: socatego'
+- soproduc
+- 'name: pro_idprod'
+- socatego
+- 'name: cat_idcate'
+/socatego: ''
+/socatego/{cat_idcate}: ''
+/soproduc: ''
+openapi: 3.0.1
+info:
+  title: aplicacionbackend
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+tags:
+  - name: soproduc
+    description: la API de control y gestion de productos.
+  - name: socatego
+    description: la API de control y gestion de categorias.
+paths:
+  /soproduc:
+    get:
+      tags:
+        - soproduc
+      summary: recive todos los productos
+      description: retorna todos los productos
+      operationId: Listartodosproductos
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Soproduc'
+    post:
+      tags:
+        - soproduc
+      summary: agrega un nuevo producto
+      description: agrega un producto
+      operationId: insertar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Soproduc'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid data
+        '409':
+          description: Already exists
+  /soproduc/{pro_idprod}:
+    get:
+      tags:
+        - soproduc
+      summary: recive el producto por id
+      description: retorna producto por el id
+      operationId: buscarproducto
+      parameters:
+        - name: pro_idprod
+          in: path
+          description: ID of pet to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Soproduc'
+    put:
+      tags:
+        - soproduc
+      summary: actualiza un producto existente
+      description: modifica los datos de un producto existente
+      operationId: actualizar
+      requestBody:
+        description: actualiza un producto existente
+        content:
+          application/json:
+            schema:
+              $ref: /components/schemas/Soproduc
+        required: true
+        parameters:
+          - name: pro_idprod
+            in: path
+            description: ID of pet to return
+            required: true
+            schema:
+              type: integer
+              format: int64
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid data
+        '409':
+          description: Already exists
+  /socatego:
+    get:
+      tags:
+        - socatego
+      summary: recive todas las categorias
+      description: retorna todos los productos
+      operationId: Listartodos
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Socatego'
+    post:
+      tags:
+        - socatego
+      summary: agrega una nueva categoria
+      description: agrega un producto
+      operationId: insertarcategoria
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Socatego'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid data
+        '409':
+          description: Already exists
+  /socatego/{cat_idcate}:
+    get:
+      tags:
+        - socatego
+      summary: recive el producto por id
+      description: retorna producto por el id
+      operationId: buscarcategoria
+      parameters:
+        - name: cat_idcate
+          in: path
+          description: ID of pet to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Socatego'
+    put:
+      tags:
+        - socatego
+      summary: actualiza una categoria existente
+      description: modifica los datos de un categoria existente
+      operationId: actualizarcategoria
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Socatego'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid data
+        '409':
+          description: Already exists
+components:
+  schemas:
+    Soproduc:
+      type: object
+      properties:
+        pro_idprod:
+          type: integer
+          format: int64
+        pro_nompro:
+          type: string
+        pro_prepro:
+          type: integer
+          format: int64
+    Socatego:
+      type: object
+      properties:
+        cat_idcate:
+          type: integer
+          format: int64
+        cat_catnombre:
+          type: string
